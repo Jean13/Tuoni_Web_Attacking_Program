@@ -12,7 +12,7 @@ Currently has the following capabilities:
 
 
 Currently working on adding:
-    * 
+    * Web spidering
 
 Planning to work on:
     * Password brute-forcer
@@ -55,7 +55,8 @@ Options:
 -7   : Test for file upload ability.
 -8   : Perform a "whois" lookup.	[Linux/Unix Only]
 -9   : Perform zone transfers.		[Linux/Unix Only]
--10   : Perform all.			[Under work]
+-10  : Perform web spidering.		[Under work]
+-11  : Perform all.			[Under work]
         '''
 	sys.exit(0)
 
