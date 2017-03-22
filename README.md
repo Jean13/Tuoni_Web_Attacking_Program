@@ -20,7 +20,7 @@ Tuoni - A web attacking program in development.
 
 **Currently working on adding:**
     
-   * 
+   * Web spider
 
 **Planning to work on:**
     
