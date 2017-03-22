@@ -7,6 +7,8 @@ Currently has the following capabilities:
     * Session hijacker
     * Get robots.txt file
     * Test file upload ability
+    * Whois lookups
+    * Zone transfers
 
 
 Currently working on adding:
@@ -21,6 +23,7 @@ Planning to work on:
 import sys
 import requests
 import threading
+import subprocess
 
 from web_attacks import get_request
 from web_attacks import shellshock
@@ -29,6 +32,8 @@ from web_attacks import dir_fuzzer
 from web_attacks import get_robots
 from web_attacks import test_methods
 from web_attacks import session_hijacker
+from web_attacks import whois
+from web_attacks import zone_transfer
 
 
 def main():
@@ -48,7 +53,9 @@ Options:
 -5   : Perform session hijacking.
 -6   : Get robots.txt file.
 -7   : Test for file upload ability.
--8   : Perform all.			[Under work]
+-8   : Perform a "whois" lookup.	[Linux/Unix Only]
+-9   : Perform zone transfers.		[Linux/Unix Only]
+-10   : Perform all.			[Under work]
         '''
 	sys.exit(0)
 
@@ -72,7 +79,7 @@ Options:
         wordlist_file = raw_input("Enter the word list filepath(E.g., /opt/SVNDigger/all.txt)\n: ")
 
         word_queue = build_wordlist(wordlist_file)
-        extensions = [".php", ".bak", ".orig", ".inc", ".pl", ".cfm", ".asp", ".js"]
+        extensions = [".php", ".bak", ".orig", ".inc", ".pl", ".cfm", ".asp", ".js", ".DS_Store", ".php~1", ".tmp"]
 
         for i in range(threads):
             t = threading.Thread(target=dir_fuzzer, args=(url, word_queue, extensions))
@@ -96,7 +103,14 @@ Options:
         test_methods(target)
 
 
+    if option == "-8":
+        target = raw_input("Enter the target URL: ")
+        whois(target)
+
+
+    if option == "-9":
+        target = raw_input("Enter the target URL: ")
+        zone_transfer(target)
 
 
 main()
-
