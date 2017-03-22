@@ -5,7 +5,8 @@ Collection of web attacks.
 import requests
 import Queue
 import urllib
-
+import subprocess
+from shlex import split
 
 
 
@@ -171,4 +172,31 @@ def session_hijacker(target):
     print "[*] Successfully brute-forced admin session.\n"
 
 
+def whois(target):
+    try:
+        bash_command = 'whois ' + target
+
+        process = subprocess.Popen(bash_command.split(), stdout=subprocess.PIPE)
+        output, error = process.communicate()
+        print output
+
+    except:
+        print "\n[!] This functionality is only available in Unix and Linux systems.\n"
+
+
+def zone_transfer(target):
+    try:
+        p1 = subprocess.Popen(split('host -t ns ' + target), stdout=subprocess.PIPE)
+        p2 = subprocess.Popen(split('cut -d " " -f4'), stdin=p1.stdout, stdout=subprocess.PIPE)
+        
+        print "[*] Results:"
+
+        for server in p2.stdout:
+            p3 = subprocess.Popen(split('host -l ' + target + ' ' + server), stdin=p2.stdout, stdout=subprocess.PIPE)
+            p4 = subprocess.Popen(split('grep "has address"'), stdin=p3.stdout, stdout=subprocess.PIPE)
+            output, error = p4.communicate()
+            print output
+        
+    except:
+        print "\n[!] This functionality is only available in Unix and Linux systems.\n"
 
