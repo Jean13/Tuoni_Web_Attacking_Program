@@ -12,6 +12,10 @@ Tuoni - A web attacking program in development.
    * Get robots.txt file
    
    * Test file upload ability
+   
+   * Whois lookups
+   
+   * Zone transfers
 
 
 **Currently working on adding:**
