@@ -34,6 +34,7 @@ from web_attacks import test_methods
 from web_attacks import session_hijacker
 from web_attacks import whois
 from web_attacks import zone_transfer
+from web_attacks import spider
 
 
 def main():
@@ -55,7 +56,7 @@ Options:
 -7   : Test for file upload ability.
 -8   : Perform a "whois" lookup.	[Linux/Unix Only]
 -9   : Perform zone transfers.		[Linux/Unix Only]
--10  : Perform web spidering.		[Under work]
+-10  : Perform web spidering.		
 -11  : Perform all.			[Under work]
         '''
 	sys.exit(0)
@@ -112,6 +113,14 @@ Options:
     if option == "-9":
         target = raw_input("Enter the target URL: ")
         zone_transfer(target)
+
+
+    if option == "-10":
+        target = raw_input("Enter the target URL: ")
+        word = raw_input("Enter the word to look for: ")
+        max_count = int(raw_input("Enter the maximum pages to crawl through: "))
+
+        spider(target, max_count, word)
 
 
 main()
