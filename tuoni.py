@@ -10,7 +10,8 @@ Currently has the following capabilities:
     * Whois lookups
     * Zone transfers
     * Web spidering
-    
+    * Banner grabbing
+
 
 Currently working on adding:
     * 
@@ -36,6 +37,7 @@ from web_attacks import session_hijacker
 from web_attacks import whois
 from web_attacks import zone_transfer
 from web_attacks import spider
+from web_attacks import banner_grab
 
 
 def main():
@@ -58,7 +60,8 @@ Options:
 -8   : Perform a "whois" lookup.	[Linux/Unix Only]
 -9   : Perform zone transfers.		[Linux/Unix Only]
 -10  : Perform web spidering.		
--11  : Perform all.			[Under work]
+-11  : Perform banner grabbing.		[Linux/Unix Only]
+-12  : Perform all.			[Under work]
         '''
 	sys.exit(0)
 
@@ -82,7 +85,7 @@ Options:
         wordlist_file = raw_input("Enter the word list filepath(E.g., /opt/SVNDigger/all.txt)\n: ")
 
         word_queue = build_wordlist(wordlist_file)
-        extensions = [".php", ".bak", ".orig", ".inc", ".pl", ".cfm", ".asp", ".js", ".DS_Store", ".php~1", ".tmp"]
+        extensions = [".php", ".bak", ".orig", ".inc", ".pl", ".cfm", ".asp", ".js", ".DS_Store", ".php~1", ".tmp", ".aspx", ".jsp", ".d2w", ".py", ".dll", ".nsf", ".ntf"]
 
         for i in range(threads):
             t = threading.Thread(target=dir_fuzzer, args=(url, word_queue, extensions))
@@ -122,6 +125,10 @@ Options:
         max_count = int(raw_input("Enter the maximum pages to crawl through: "))
 
         spider(target, max_count, word)
+
+
+    if option == "-11":
+        banner_grab()
 
 
 main()
