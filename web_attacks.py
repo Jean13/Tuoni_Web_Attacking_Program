@@ -7,7 +7,8 @@ import Queue
 import urllib
 import subprocess
 from shlex import split
-
+from HTMLParser import HTMLParser
+from urlparse import urlparse
 
 
 '''
@@ -199,4 +200,70 @@ def zone_transfer(target):
         
     except:
         print "\n[!] This functionality is only available in Unix and Linux systems.\n"
+
+
+class LinkParser(HTMLParser):
+    def handle_starttag(self, tag, attrs):
+        if tag == 'a' or 'link':
+            for (key, value) in attrs:
+                if key == 'href':
+                    # Grab the new URL
+                    newUrl = "{}{}".format(self.baseUrl, value)
+                    # Add it to collection
+                    self.links += [newUrl]
+
+
+    def get_links(self, url):
+        self.links = []
+        self.baseUrl = url
+        req = requests.get(url)
+
+        if "text/html" in req.headers["Content-Type"]:
+            content = req.content
+            self.feed(content)
+
+            return content, self.links
+        
+        else:
+            return "", []
+
+
+def spider(url, max_pages, word=""):
+    target = [url]
+    number_visited = 0
+    found_word = False
+
+    print "[*] Pages crawled through:\n"
+    while number_visited < max_pages and target != [] and not found_word:
+        number_visited += 1
+        # Start from the beginning of our collection of pages to visit
+        url = target[0]
+        target = target[1:]
+
+        try:
+            print number_visited, url
+            parser = LinkParser()
+            data, links = parser.get_links(url)
+
+            if data.find(word) > -1:
+                found_word = True
+
+            target += links
+
+        except Exception as e:
+            print "[!] Error:", e
+
+    if found_word:
+        print "\n[*] The word", word, "was found at:", url
+        see = raw_input("Do you want to see the page content?\nAnswer: ")
+        if see == "Yes" or "yes" or "Y" or "y":
+            print "[*] Contents of the URL:", url
+            print
+            print data
+
+    else:
+        print "\n[!] Word '", word, "' was not found."
+
+
+
 
