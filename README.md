@@ -16,11 +16,13 @@ Tuoni - A web attacking program in development.
    * Whois lookups
    
    * Zone transfers
+   
+   * Web spider
 
 
 **Currently working on adding:**
     
-   * Web spider
+   * 
 
 **Planning to work on:**
     
