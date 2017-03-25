@@ -9,10 +9,11 @@ Currently has the following capabilities:
     * Test file upload ability
     * Whois lookups
     * Zone transfers
-
+    * Web spidering
+    
 
 Currently working on adding:
-    * Web spidering
+    * 
 
 Planning to work on:
     * Password brute-forcer
