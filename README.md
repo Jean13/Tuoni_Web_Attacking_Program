@@ -17,7 +17,9 @@ Tuoni - A web attacking program in development.
    
    * Zone transfers
    
-   * Web spider
+   * Web spidering
+   
+   * Banner grabbing
 
 
 **Currently working on adding:**
