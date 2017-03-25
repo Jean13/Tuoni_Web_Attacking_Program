@@ -216,7 +216,8 @@ class LinkParser(HTMLParser):
     def get_links(self, url):
         self.links = []
         self.baseUrl = url
-        req = requests.get(url)
+        cookies = {cookies1:cookies2}
+        req = requests.get(url, cookies=cookies)
 
         if "text/html" in req.headers["Content-Type"]:
             content = req.content
@@ -229,6 +230,11 @@ class LinkParser(HTMLParser):
 
 
 def spider(url, max_pages, word=""):
+    global cookies1, cookies2
+
+    cookies1 = raw_input("Enter the cookie name (Optional): ")
+    cookies2 = raw_input("Enter the cookie value (Optional): ")
+
     target = [url]
     number_visited = 0
     found_word = False
