@@ -6,6 +6,7 @@ import requests
 import Queue
 import urllib
 import subprocess
+import socket
 from shlex import split
 from HTMLParser import HTMLParser
 from urlparse import urlparse
@@ -271,5 +272,14 @@ def spider(url, max_pages, word=""):
         print "\n[!] Word '", word, "' was not found."
 
 
+def banner_grab():
+    website = raw_input("Enter the target website or IP address: ")
 
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    connect = s.connect((website, 80))
+    s.send('GET /\n\n')
+    response = s.recv(1024)
+
+    print
+    print response
 
